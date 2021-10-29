@@ -23,11 +23,7 @@ def get_status():
     return {"status": "ok"}
 
 
-# A bit odd, but the only way I've been able to get prefixing of the Dash app
-# to work is by allowing the Dash/Flask app to prefix itself, then mounting
-# it to root
-dash_app = create_dash_app(routes_pathname_prefix="/dash/")
-app.mount("/", WSGIMiddleware(dash_app.server))
+app.mount("/", WSGIMiddleware(create_dash_app().server))
 
 
 if __name__ == "__main__":
